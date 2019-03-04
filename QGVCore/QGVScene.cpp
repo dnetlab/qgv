@@ -115,27 +115,41 @@ QGVSubGraph *QGVScene::addSubGraph(const QString &name, bool cluster)
 
 void QGVScene::deleteNode(QGVNode* node)
 {
-    QList<QGVNode *>::iterator it = std::find(_nodes.begin(), _nodes.end(), node);
-    if(it == _nodes.end())
+//    QList<QGVNode *>::iterator it = std::find(_nodes.begin(), _nodes.end(), node);
+//    if(it == _nodes.end())
+//    {
+//        std::cout << "Error, node not part of Scene" << std::endl;
+//        return;
+//    }
+    int idx = _nodes.indexOf(node);
+    if(idx < 0)
     {
         std::cout << "Error, node not part of Scene" << std::endl;
         return;
     }
     std::cout << "delNode ret " << agdelnode(node->_node->graph(), node->_node->node()) << std::endl;;
-    _nodes.erase(it);
+   // _nodes.erase(it);
+    _nodes.removeAt(idx);
     delete node;
 }
 
 void QGVScene::deleteEdge(QGVEdge* edge)
 {
     std::cout << "delEdge ret " << agdeledge(_graph->graph(), edge->_edge->edge()) << std::endl;
-    QList<QGVEdge *>::iterator it = std::find(_edges.begin(), _edges.end(), edge);
-    if(it == _edges.end())
+//    QList<QGVEdge *>::iterator it = std::find(_edges.begin(), _edges.end(), edge);
+//    if(it == _edges.end())
+//    {
+//        std::cout << "Error, QGVEdge not part of Scene" << std::endl;
+//        return;
+//    }
+//    _edges.erase(it);
+    int idx = _edges.indexOf(edge);
+    if(idx < 0)
     {
         std::cout << "Error, QGVEdge not part of Scene" << std::endl;
         return;
     }
-    _edges.erase(it);
+    _edges.removeAt(idx);
     delete edge;
 }
 
@@ -143,14 +157,20 @@ void QGVScene::deleteSubGraph(QGVSubGraph *subgraph)
 {
     std::cout << "Removing sug " << subgraph->_sgraph->graph() << std::endl;
     std::cout << "delSubg ret " << agclose(subgraph->_sgraph->graph()) << std::endl;
-    QList<QGVSubGraph *>::iterator it = std::find(_subGraphs.begin(), _subGraphs.end(), subgraph);
-    if(it == _subGraphs.end())
+//    QList<QGVSubGraph *>::iterator it = std::find(_subGraphs.begin(), _subGraphs.end(), subgraph);
+//    if(it == _subGraphs.end())
+//    {
+//        std::cout << "Error, QGVSubGraph not part of Scene" << std::endl;
+//        return;
+//    }
+//    _subGraphs.erase(it);
+    int idx = _subGraphs.indexOf(subgraph);
+    if(idx < 0)
     {
         std::cout << "Error, QGVSubGraph not part of Scene" << std::endl;
         return;
     }
-    _subGraphs.erase(it);
-
+    _subGraphs.removeAt(idx);
     delete subgraph;
 }
 
